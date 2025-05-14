@@ -1,5 +1,5 @@
 import AnimatedCounter from "./AnimatedCounter";
-import DoughnutChart from "./ui/DoughnutChart";
+import DoughnutChart from "./DoughnutChart";
 
 const TotalBalanceBox = ({
   accounts = [],
