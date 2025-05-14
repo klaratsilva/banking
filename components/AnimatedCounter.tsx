@@ -9,7 +9,7 @@ const AnimatedCounter = ({
 }) => {
   return (
     <div>
-      <CountUp end={totalCurrentBalance} decimal="," prefix="$" duration={3} />
+      <CountUp end={totalCurrentBalance} decimal="," prefix="$" duration={2} />
     </div>
   );
 };
