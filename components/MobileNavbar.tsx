@@ -46,7 +46,7 @@ const MobileNavbar = ({ user }: MobileNavProps) => {
                     pathname.startsWith(`${item.route}/`);
 
                   return (
-                    <SheetClose asChild>
+                    <SheetClose key={item.label} asChild>
                       <Link
                         href={item.route}
                         key={item.label}
