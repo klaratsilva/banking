@@ -14,6 +14,7 @@ import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import CustomInput from "./CustomInput";
+import PlaidLink from "./PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
@@ -27,14 +28,14 @@ const AuthForm = ({ type }: { type: string }) => {
     defaultValues: {
       firstName: "",
       lastName: "",
-      address: "",
+      email: "",
+      password: "",
+      address1: "",
       city: "",
       state: "",
       postalCode: "",
       dateOfBirth: "",
       ssn: "",
-      email: "",
-      password: "",
     },
   });
 
@@ -43,8 +44,21 @@ const AuthForm = ({ type }: { type: string }) => {
 
     try {
       if (type === "sign-up") {
-        const newUser = await signUp(data);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password,
+        };
 
+        const newUser = await signUp(userData);
+        console.log(newUser, "newUser");
         setUser(newUser);
       }
       if (type === "sign-in") {
@@ -88,7 +102,9 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4">{/* Plaid link component */}</div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+        </div>
       ) : (
         <>
           <Form {...form}>
@@ -112,7 +128,7 @@ const AuthForm = ({ type }: { type: string }) => {
 
                   <CustomInput
                     control={form.control}
-                    name="address"
+                    name="address1"
                     label="Address"
                     placeholder="Enter your specific address"
                   />
