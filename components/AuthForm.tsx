@@ -9,32 +9,42 @@ import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { signIn, signUp } from "@/lib/actions/user.actions";
 import { authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import CustomInput from "./CustomInput";
 import { useRouter } from "next/navigation";
+import CustomInput from "./CustomInput";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
   const formSchema = authFormSchema(type);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      state: "",
+      postalCode: "",
+      dateOfBirth: "",
+      ssn: "",
       email: "",
+      password: "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     setIsLoading(true);
 
     try {
       if (type === "sign-up") {
         const newUser = await signUp(data);
+
         setUser(newUser);
       }
       if (type === "sign-in") {
@@ -42,6 +52,7 @@ const AuthForm = ({ type }: { type: string }) => {
           email: data.email,
           password: data.password,
         });
+
         if (response) {
           router.push("/");
         }

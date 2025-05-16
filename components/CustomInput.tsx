@@ -34,9 +34,10 @@ const CustomInput = ({
           <div className="flex w-full flex-col">
             <FormControl>
               <Input
-                id={`${name}-form-item`}
+                id={name}
                 placeholder={placeholder}
                 className="input-class"
+                autoComplete={name === "password" ? "current-password" : "off"}
                 type={name === "password" ? "password" : "text"}
                 {...field}
               />
