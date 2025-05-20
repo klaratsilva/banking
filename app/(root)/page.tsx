@@ -1,4 +1,5 @@
 import HeaderBox from "@/components/HeaderBox";
+import RecentTransactions from "@/components/RecentTransactions";
 import RightSideBar from "@/components/RightSideBar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { getAccount, getAccounts } from "@/lib/actions/bank.actions";
@@ -9,12 +10,13 @@ import React from "react";
 //searchParams id, paged
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
   const loggedIn = await getLoggedInUser();
-  console.log(loggedIn, "loggedInUser");
+  const currentPage = Number(page as string) | 1;
 
   if (!loggedIn) {
     redirect("/sign-in");
   }
 
+  // loggedIn.$id is from session cookie, returns, the totlabalance...
   const accounts = await getAccounts({
     userId: loggedIn.$id,
   });
@@ -42,7 +44,12 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
           totalBanks={accounts?.totalBanks}
           totalCurrentBalance={accounts?.totalCurrentBalance}
         />
-        TRANSACTIONS
+        <RecentTransactions
+          accounts={accountsData}
+          transactions={account.transactions}
+          appwriteItemId={appwriteItemId}
+          page={currentPage}
+        />
       </div>
       <RightSideBar
         user={loggedIn}
