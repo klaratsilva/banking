@@ -63,7 +63,7 @@ export const topCategoryStyles = {
     },
     icon: "/icons/monitor.svg",
   },
-  Travel: {
+  "Transfer": {
     bg: "bg-success-25",
     circleBg: "bg-success-100",
     text: {

@@ -7,17 +7,16 @@ import { getLoggedInUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import React from "react";
 
-//searchParams id, paged
+//searchParams id, page
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
   const loggedIn = await getLoggedInUser();
-  const currentPage = Number(page as string) | 1;
+  const currentPage = Number(page as string) || 1;
 
   if (!loggedIn) {
     redirect("/sign-in");
   }
 
-  // loggedIn.$id is from session cookie, returns, the totlabalance...
-  const accounts = await getAccounts({
+  const accounts: AccountsDataAppwrite = await getAccounts({
     userId: loggedIn.$id,
   });
 
@@ -53,8 +52,8 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
       </div>
       <RightSideBar
         user={loggedIn}
-        transactions={accounts.transactions}
-        banks={accounts?.data.slice(0, 2)}
+        transactions={account.transactions}
+        banks={accountsData.slice(0, 2) as Bank[] & Account[]}
       />
     </section>
   );

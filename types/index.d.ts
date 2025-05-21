@@ -7,6 +7,17 @@ declare type SearchParamProps = {
 
 // ========================================
 
+declare type AccountDataAppwrite = {
+  data: Account,
+  transactions: Transaction[],
+}
+
+declare type AccountsDataAppwrite = {
+  data: Bank[] & Account[],
+  totalBanks: number,
+  totalCurrentBalance: number
+}
+
 declare type SignUpParams = {
   firstName: string;
   lastName: string;
@@ -60,7 +71,7 @@ declare type Account = {
   type: string;
   subtype: string;
   appwriteItemId: string;
-  sharableId: string;
+  shareableId: string;
 };
 
 declare type Transaction = {
@@ -82,6 +93,8 @@ declare type Transaction = {
   receiverBankId: string;
 };
 
+
+
 declare type Bank = {
   $id: string;
   accountId: string;
@@ -89,7 +102,7 @@ declare type Bank = {
   accessToken: string;
   fundingSourceUrl: string;
   userId: string;
-  sharableId: string;
+  shareableId: string;
 };
 
 declare type AccountTypes =

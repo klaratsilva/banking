@@ -54,7 +54,6 @@ export const createOnDemandAuthorization = async () => {
 export const createDwollaCustomer = async (
   newCustomer: NewDwollaCustomerParams
 ) => {
-  console.log("Creating Dwolla customer with:", newCustomer); // <--- ADD THIS
   try {
     return await dwollaClient
       .post("customers", newCustomer)

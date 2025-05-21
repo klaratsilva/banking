@@ -135,7 +135,6 @@ export function countTransactionCategories(
 ): CategoryCount[] {
   const categoryCounts: { [category: string]: number } = {};
   let totalCount = 0;
-
   // Iterate over each transaction
   transactions &&
     transactions.forEach((transaction) => {
